@@ -33,11 +33,13 @@ def part02(filename):
 parts = [part01, part02]"""
 
 def read_file(filename):
-    return open(filename,'r').read()
+    return open(filename,'r').read().rstrip()
 
 def read_file_lines(filename):
-    return open(filename,'r').readlines()
+    return [x.rstrip() for x in open(filename,'r').readlines()]
 
+def read_file_lines_no_strip(filename):
+    return [x for x in open(filename,'r').readlines()]
 
 def print_result(day, part, part_func):
     print(result_fmt % (part, part_func(input_fmt % (day, part))))

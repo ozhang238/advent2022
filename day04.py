@@ -20,7 +20,7 @@ def check_range_pair_some_overlap(pair):
            (pair[1][0] >= pair[0][0] and pair[1][0] <= pair[0][1])
 
 def get_entries(filename): 
-    return [ [[int(z) for z in y.split('-')] for y in x.rstrip().split(',')] for x in adl.read_file_lines(filename)]
+    return [ [[int(z) for z in y.split('-')] for y in x.split(',')] for x in adl.read_file_lines(filename)]
 
 def part01(filename):
     return sum([check_range_pair_full_overlap(x) for x in get_entries(filename)])

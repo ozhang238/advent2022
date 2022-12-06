@@ -57,7 +57,7 @@ def calc_score2(strat_tuple):
     return calc_score(tuple([strat_tuple[0],calc_choice(strat_tuple)]))
 
 def get_entries(filename): #split no empty lines, create list of lists
-    return [tuple(x.rstrip().split(' ')) for x in adl.read_file_lines(filename)]
+    return [tuple(x.split(' ')) for x in adl.read_file_lines(filename)]
 
 def part01(filename):
     return sum([calc_score(x) for x in get_entries(filename)])

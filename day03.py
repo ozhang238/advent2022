@@ -17,28 +17,28 @@ def char_to_prio(character):
         return ord(character) - 38
     
 def split_list_into_sets(m_list):
-    return [set(m_list[:int(len(m_list)/2)]),set(m_list[int(len(m_list)/2):])]
+    return tuple([set(m_list[:int(len(m_list)/2)]),set(m_list[int(len(m_list)/2):])])
 
 def split_list_into_N_chunks(N, l):
-    return [l[i:i + N] for i in range(0, len(l), N)]
+    return [tuple(l[i:i + N]) for i in range(0, len(l), N)]
 
-def get_intersects(set_pair):
-    return set_pair[0].intersection(set_pair[1])
+def intersect_ab(a, b):
+    return a.intersection(b)
 
-def get_intersects_triple(set_triple):
-    return set_triple[0].intersection(set_triple[1]).intersection(set_triple[2])
+def intersect_abc(a, b, c):
+    return intersect_ab(a, b).intersection(c)
 
 def get_entries(filename): #split no empty lines, create list of lists
-    return [split_list_into_sets([*x.rstrip()]) for x in adl.read_file_lines(filename)]
+    return [split_list_into_sets([*x]) for x in adl.read_file_lines(filename)]
 
 def get_entries2(filename): #split no empty lines, create list of lists
-    return split_list_into_N_chunks(3, [set([*x.rstrip()]) for x in adl.read_file_lines(filename)])
+    return split_list_into_N_chunks(3, [set([*x]) for x in adl.read_file_lines(filename)])
 
 def part01(filename):
-    return sum([ sum([char_to_prio(intersect) for intersect in get_intersects(x)]) for x in get_entries(filename)])
+    return sum([ [char_to_prio(i) for i in intersect_ab(*x)][0] for x in get_entries(filename)])
 
 def part02(filename):
-  return sum([ sum([char_to_prio(intersect) for intersect in get_intersects_triple(x)]) for x in get_entries2(filename)])
+  return sum([ [char_to_prio(i) for i in intersect_abc(*x)][0] for x in get_entries2(filename)])
 
 
 #===============================================================================
